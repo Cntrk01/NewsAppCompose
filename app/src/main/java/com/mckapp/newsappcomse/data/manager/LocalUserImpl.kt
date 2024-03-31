@@ -18,7 +18,6 @@ class LocalUserImpl(
     override suspend fun saveAppEntry() {
         context.dataStore.edit {settings->
             settings[PrefencesKey.APP_ENTRY] = true
-
         }
     }
 
@@ -28,7 +27,6 @@ class LocalUserImpl(
         }
     }
 }
-
 private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(name = USER_SETTINGS)
 
 private object PrefencesKey{

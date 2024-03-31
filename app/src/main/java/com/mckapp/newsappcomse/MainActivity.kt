@@ -9,9 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import com.mckapp.newsappcomse.domain.usecases.AppEntryUseCases
 import com.mckapp.newsappcomse.presentation.onboarding.OnBoardingScreen
+import com.mckapp.newsappcomse.presentation.onboarding.OnBoardingViewModel
 import com.mckapp.newsappcomse.ui.theme.NewsAppComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -21,7 +23,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
-    lateinit var appEntryUseCases: AppEntryUseCases
+    lateinit var useCases: AppEntryUseCases
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
 
         lifecycleScope.launch {
-            appEntryUseCases.readAppEntry().collect{
+            useCases.readAppEntry().collect{
                 println("Value : $it")
             }
         }
@@ -37,7 +39,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsAppComposeTheme {
                 Box(modifier = Modifier.background(color=MaterialTheme.colorScheme.background)){
-                    OnBoardingScreen()
+                    val viewModel : OnBoardingViewModel = hiltViewModel()
+                    OnBoardingScreen(event= viewModel::onEvent) //viewModel.onEvent(it)
                 }
             }
         }
