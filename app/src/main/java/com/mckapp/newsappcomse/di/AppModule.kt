@@ -2,10 +2,12 @@ package com.mckapp.newsappcomse.di
 
 import android.app.Application
 import com.mckapp.newsappcomse.data.manager.LocalUserImpl
+import com.mckapp.newsappcomse.data.remote.NewsApi
+import com.mckapp.newsappcomse.data.repository.NewsRepositoryImpl
 import com.mckapp.newsappcomse.domain.manager.LocalUserManager
-import com.mckapp.newsappcomse.domain.usecases.AppEntryUseCases
-import com.mckapp.newsappcomse.domain.usecases.ReadAppEntry
-import com.mckapp.newsappcomse.domain.usecases.SaveAppEntry
+import com.mckapp.newsappcomse.domain.usecases.app_entry.AppEntryUseCases
+import com.mckapp.newsappcomse.domain.usecases.app_entry.ReadAppEntry
+import com.mckapp.newsappcomse.domain.usecases.app_entry.SaveAppEntry
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,4 +32,10 @@ object AppModule {
         readAppEntry = ReadAppEntry(localUserManager),
         saveAppEntry = SaveAppEntry(localUserManager)
     )
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(newsApi: NewsApi) : NewsRepositoryImpl{
+        return NewsRepositoryImpl(newsApi = newsApi)
+    }
 }

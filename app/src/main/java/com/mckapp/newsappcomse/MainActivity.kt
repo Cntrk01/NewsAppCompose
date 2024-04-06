@@ -13,18 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.mckapp.newsappcomse.domain.usecases.AppEntryUseCases
 import com.mckapp.newsappcomse.presentation.nav_graph.NavGraph
-import com.mckapp.newsappcomse.presentation.onboarding.OnBoardingScreen
-import com.mckapp.newsappcomse.presentation.onboarding.OnBoardingViewModel
 import com.mckapp.newsappcomse.ui.theme.NewsAppComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
