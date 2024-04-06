@@ -5,8 +5,9 @@ import androidx.paging.PagingState
 import com.mckapp.newsappcomse.domain.model.Article
 import java.lang.Exception
 
-class NewsPagingSourse(
-    private val newsApi: NewsApi,
+class SearchPagingNews (
+    private val searchApi : NewsApi,
+    private val searchQuery : String,
     private val sources : String
 ) : PagingSource<Int,Article>(){
 
@@ -23,7 +24,7 @@ class NewsPagingSourse(
         val page = params.key ?: 1
 
         return try {
-            val newsResponse = newsApi.getNews(page = page , sources = sources)
+            val newsResponse = searchApi.searchNews(searchQuery=searchQuery,page = page , sources = sources)
             totalNewsCount += newsResponse.articles.size
             //distinctBy ile benzersiz olan title objelerini getirip yeni bir liste oluşturacağız.
             val articles = newsResponse.articles.distinctBy { it.title }
