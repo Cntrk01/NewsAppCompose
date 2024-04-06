@@ -10,7 +10,7 @@ import com.mckapp.newsappcomse.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class NewsRepositoryImpl @Inject constructor(
+class NewsRepositoryImpl (
     private val newsApi: NewsApi
 ) : NewsRepository {
     override fun getNews(sources: List<String>): Flow<PagingData<Article>> {
