@@ -1,15 +1,11 @@
 package com.mckapp.newsappcomse.presentation.nav_graph
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import androidx.paging.compose.collectAsLazyPagingItems
-import com.mckapp.newsappcomse.presentation.home.HomeScreen
-import com.mckapp.newsappcomse.presentation.home.HomeViewModel
 import com.mckapp.newsappcomse.presentation.onboarding.OnBoardingScreen
 import com.mckapp.newsappcomse.presentation.onboarding.OnBoardingViewModel
 import com.mckapp.newsappcomse.presentation.search.SearchScreen
