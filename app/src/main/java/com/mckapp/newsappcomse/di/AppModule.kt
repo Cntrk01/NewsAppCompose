@@ -1,6 +1,11 @@
 package com.mckapp.newsappcomse.di
 
 import android.app.Application
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.mckapp.newsappcomse.data.local.NewsDao
+import com.mckapp.newsappcomse.data.local.NewsDatabase
+import com.mckapp.newsappcomse.data.local.NewsTypeConventer
 import com.mckapp.newsappcomse.data.manager.LocalUserImpl
 import com.mckapp.newsappcomse.data.remote.NewsApi
 import com.mckapp.newsappcomse.data.repository.NewsRepositoryImpl
@@ -13,6 +18,7 @@ import com.mckapp.newsappcomse.domain.usecases.news.GetNews
 import com.mckapp.newsappcomse.domain.usecases.news.NewsUseCases
 import com.mckapp.newsappcomse.domain.usecases.news.SearchNews
 import com.mckapp.newsappcomse.utils.Constants.BASE_URL
+import com.mckapp.newsappcomse.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,4 +75,24 @@ object AppModule {
             searchNews = SearchNews(newsRepository)
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideNewsDatabase(
+        application: Application
+    ) : NewsDatabase {
+        return Room.databaseBuilder(
+            context = application,
+            klass = NewsDatabase::class.java,
+            name = DATABASE_NAME
+        ).addTypeConverter(NewsTypeConventer())
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsDao(
+        newsDatabase: NewsDatabase
+    ) : NewsDao = newsDatabase.newsDao
  }
