@@ -14,9 +14,12 @@ import com.mckapp.newsappcomse.domain.repository.NewsRepository
 import com.mckapp.newsappcomse.domain.usecases.app_entry.AppEntryUseCases
 import com.mckapp.newsappcomse.domain.usecases.app_entry.ReadAppEntry
 import com.mckapp.newsappcomse.domain.usecases.app_entry.SaveAppEntry
+import com.mckapp.newsappcomse.domain.usecases.news.DeleteArticle
 import com.mckapp.newsappcomse.domain.usecases.news.GetNews
 import com.mckapp.newsappcomse.domain.usecases.news.NewsUseCases
 import com.mckapp.newsappcomse.domain.usecases.news.SearchNews
+import com.mckapp.newsappcomse.domain.usecases.news.SelectArticles
+import com.mckapp.newsappcomse.domain.usecases.news.UpsertArticle
 import com.mckapp.newsappcomse.utils.Constants.BASE_URL
 import com.mckapp.newsappcomse.utils.Constants.DATABASE_NAME
 import dagger.Module
@@ -68,11 +71,15 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNewsUseCases(
-        newsRepository: NewsRepository
+        newsRepository: NewsRepository,
+        newsDao: NewsDao
     ): NewsUseCases {
         return NewsUseCases(
             getNews = GetNews(newsRepository),
-            searchNews = SearchNews(newsRepository)
+            searchNews = SearchNews(newsRepository),
+            upsertArticle = UpsertArticle(newsDao = newsDao),
+            selectArticles = SelectArticles(newsDao = newsDao),
+            deleteArticle = DeleteArticle(newsDao=newsDao)
         )
     }
 
