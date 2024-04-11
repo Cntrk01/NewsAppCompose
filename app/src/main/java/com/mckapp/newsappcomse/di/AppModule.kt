@@ -18,6 +18,7 @@ import com.mckapp.newsappcomse.domain.usecases.news.DeleteArticle
 import com.mckapp.newsappcomse.domain.usecases.news.GetNews
 import com.mckapp.newsappcomse.domain.usecases.news.NewsUseCases
 import com.mckapp.newsappcomse.domain.usecases.news.SearchNews
+import com.mckapp.newsappcomse.domain.usecases.news.SelectArticle
 import com.mckapp.newsappcomse.domain.usecases.news.SelectArticles
 import com.mckapp.newsappcomse.domain.usecases.news.UpsertArticle
 import com.mckapp.newsappcomse.utils.Constants.BASE_URL
@@ -63,9 +64,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNewsRepository(
-        newsApi: NewsApi
+        newsApi: NewsApi,
+        newsDao: NewsDao
     ): NewsRepository {
-        return NewsRepositoryImpl(newsApi)
+        return NewsRepositoryImpl(newsApi=newsApi,newsDao=newsDao)
     }
 
     @Provides
@@ -77,9 +79,10 @@ object AppModule {
         return NewsUseCases(
             getNews = GetNews(newsRepository),
             searchNews = SearchNews(newsRepository),
-            upsertArticle = UpsertArticle(newsDao = newsDao),
-            selectArticles = SelectArticles(newsDao = newsDao),
-            deleteArticle = DeleteArticle(newsDao=newsDao)
+            upsertArticle = UpsertArticle(newsRepository = newsRepository),
+            selectArticles = SelectArticles(newsRepository = newsRepository),
+            deleteArticle = DeleteArticle(newsRepository = newsRepository),
+            selectArticle = SelectArticle(newsRepository = newsRepository)
         )
     }
 
