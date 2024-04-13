@@ -28,6 +28,8 @@ import com.mckapp.newsappcomse.presentation.common.ArticleList
 import com.mckapp.newsappcomse.presentation.common.SearchBar
 import com.mckapp.newsappcomse.presentation.nav_graph.Route
 import com.mckapp.newsappcomse.utils.Dimens.mediumPadding1
+import com.mckapp.newsappcomse.utils.Dimens.smallIconSize
+import com.mckapp.newsappcomse.utils.Dimens.smallPadding
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -65,6 +67,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(mediumPadding1))
 
         SearchBar(
+            modifier = Modifier.padding(horizontal = mediumPadding1),
             text = "",
             readOnly = true,
             onValueChange = {},
@@ -74,19 +77,19 @@ fun HomeScreen(
             onSearch = {}
         )
 
-        Spacer(modifier = Modifier.height(mediumPadding1))
+        Spacer(modifier = Modifier.height(smallPadding))
 
         Text(
             text = titles,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(mediumPadding1)
-                .basicMarquee(),
+                .padding(start = mediumPadding1, end = mediumPadding1)
+                .basicMarquee(), //uzun bir text varsa eğer ve bunun otomatik olarak kayan yazı şeklinde göstermek istiyorsak bu methodu kullanmalıyız!
             fontSize = 12.sp,
             color = colorResource(id = R.color.placeholder)
         )
 
-        Spacer(modifier = Modifier.height(mediumPadding1))
+        Spacer(modifier = Modifier.height(smallPadding))
 
         ArticleList(
             modifier = Modifier.padding(horizontal = mediumPadding1),

@@ -44,6 +44,10 @@ fun ArticleList(
     articles: List<Article>,
     onClick: (Article) -> Unit
 ) {
+    if(articles.isEmpty()){
+        EmptyScreen()
+    }
+
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(mediumPadding1),
@@ -73,9 +77,18 @@ fun handlePagingResult(
             ShimmerEffect()
             false
         }
-
+        //internetin olmadığı gibi durumlarda error kısımı çalışıyor
         error != null -> {
-            EmptyScreen()
+            EmptyScreen(
+                error=error
+            )
+            false
+        }
+
+        articles.itemCount == 0 -> {
+            EmptyScreen(
+                emptyListError = "Query Not Found..."
+            )
             false
         }
 
